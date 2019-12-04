@@ -23,7 +23,10 @@ while not class_choosen:
     else:
         print("This class does not exist, try again.")
 
-print("Welcome to Dungeon")
+print("""
+When you enter the room you get attacked by Goblins.
+Defend yourself and beat them.
+""")
 
 
 
@@ -57,11 +60,11 @@ player_items = [{"item": potion, "quantity": 15}, {"item": hipotion, "quantity":
 
 # Instantiate People
 if player_class == "warrior":
-    player_spells = [slash, jstrike, blade, eruption, cure, cure2]
-    player1 = Person("Vamirio:", 3260, 132, 300, 34, player_spells, player_items)
+    player_spells = [slash, jstrike, blade, cure, cure2]
+    player1 = Person("Vamirio:", 6260, 132, 300, 34, player_spells, player_items)
 elif player_class == "mage":
     player_spells = [fire, ember, flamethrower, eruption, cure, cure2]
-    player1 = Person("Vamirio:", 3260, 132, 300, 34, player_spells, player_items)
+    player1 = Person("Vamirio:", 3260, 432, 300, 34, player_spells, player_items)
 else:
     print("""Error in class selection. Loading Backupclass.
     Godclass loaded.""")
@@ -81,9 +84,10 @@ enemy_nr = len(enemies)
 
 running = True
 i = 0
+defeated_enemies = 0
+defeated_players = 0
 
 print("AN ENEMY ATTACKS!")
-
 while running:
     print("======================")
 
@@ -96,6 +100,7 @@ while running:
 
     for enemy in enemies:
         enemy.get_enemy_stats()
+
 
     for player in players:
 
@@ -184,26 +189,27 @@ while running:
                 if enemies[enemy].get_hp() == 0:
                     print(enemies[enemy].name.replace(" ", "") + " has died.")
                     del enemies[enemy]
+                    #defeated_enemies += 1 if enemy checker doesnt work resort to this
 
-    # Check if battle is over
-    defeated_enemies = 0
-    defeated_players = 0
-
+    
+    # Check if battle is over [old]
+    """
     for enemy in enemies:
-        if enemy.get_hp() == 0:
+        if enemy.get_hp() <= 0:
             defeated_enemies += 1
 
     for player in players:
-        if player.get_hp() == 0:
+        if player.get_hp() <= 0:
             defeated_players += 1
-
+    print(f"Defeated{defeated_enemies} of {enemy_nr} Enemies")
+    """
     # Check if Player won
-    if defeated_enemies == enemy_nr:
+    if len(enemies) == 0:
         print("You win!")
         running = False
 
     # Check if Enemy won
-    elif defeated_players == player_nr:
+    elif len(players) == 0:
         print("Your enemies have defeated you!")
         running = False
 
@@ -219,6 +225,10 @@ while running:
 
             players[target].take_damage(enemy_dmg)
             print(enemy.name.replace(" ", "") + " attacks " + players[target].name.replace(" ", "") + " for", enemy_dmg)
+            print(player)
+            if players[target].get_hp() == 0:
+                print(players[target].name.replace(" ", "") + " has died.")
+                del players[target]
 
         elif enemy_choice == 1:
             spell, magic_dmg = enemy.choose_enemy_spell()
@@ -239,3 +249,24 @@ while running:
                     print(players[target].name.replace(" ", "") + " has died.")
                     del players[player]
             #print("Enemy chose", spell, "damage is", magic_dmg)
+        # Check if Player won
+        if len(enemies) == 0:
+            print("You win!")
+            running = False
+
+        # Check if Enemy won
+        elif len(players) == 0:
+            print("Your enemies have defeated you!")
+            running = False
+
+print("""
+You have defeated the enemy
+
+You can now proceed to the next room
+
+...
+
+...
+
+To be continued
+""")
