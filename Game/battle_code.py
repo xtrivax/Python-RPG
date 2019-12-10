@@ -1,11 +1,18 @@
 import random
-from defs import Person, Spell, Item
+import character_class
+import skills
+import items
 
 def battle(players, enemies):
+    #I give over the list of Enemies and Players
+
     running = True
+
+    #Need it to adapt to different Battle size (E.G.: Enemies choosing target)
     player_nr = len(players)
     enemy_nr = len(enemies)
 
+    #Printing stats
     while running:
         print("======================")
 
@@ -19,13 +26,14 @@ def battle(players, enemies):
         for enemy in enemies:
             enemy.get_enemy_stats()
 
-
+        #Player attack phase
         for player in players:
 
             player.choose_action()
             choice = input("    Choose action: ")
             index = int(choice) - 1
 
+            #Normal Attack
             if index == 0:
                 dmg = player.generate_damage()
                 enemy = player.choose_target(enemies)
@@ -37,6 +45,7 @@ def battle(players, enemies):
                     print(enemies[enemy].name.replace(" ", "") + " has died.")
                     del enemies[enemy]
 
+            #Skill and Spell attacks.
             elif index == 1:
                 player.choose_magic()
                 magic_choice = int(input("    Choose magic: ")) - 1
@@ -58,7 +67,7 @@ def battle(players, enemies):
                 if spell.type == "white":
                     player.heal(magic_dmg)
                     print("\n" + spell.name + " heals for", str(magic_dmg), "HP.")
-                elif spell.type == "ability":
+                elif spell.type == "skill":
 
                     enemy = player.choose_target(enemies)
 
@@ -69,7 +78,8 @@ def battle(players, enemies):
                     if enemies[enemy].get_hp() == 0:
                         print(enemies[enemy].name.replace(" ", "") + " has died.")
                         del enemies[enemy]
-
+            
+            #Items
             elif index == 2:
                 player.choose_item()
                 item_choice = int(input("    Choose item: ")) - 1
@@ -97,19 +107,9 @@ def battle(players, enemies):
                     else:
                         player.hp = player.maxhp
                         player.mp = player.maxmp
-                    print("\n" + item.name + " fully restores HP/MP")
-                elif item.type == "attack":
-                    enemy = player.choose_target(enemies)
-                    enemies[enemy].take_damage(item.prop)
-
-                    print("\n" + item.name + " deals", str(item.prop), "points of damage to " + enemies[enemy].name)
-
-                    if enemies[enemy].get_hp() == 0:
-                        print(enemies[enemy].name.replace(" ", "") + " has died.")
-                        del enemies[enemy]
-                        
+                    print("\n" + item.name + " fully restores HP/MP")                        
         
-        # Check if battle is over [old]
+        # Check if battle is over
         # Check if Player won
         if len(enemies) == 0:
             print("You win!")
@@ -132,7 +132,7 @@ def battle(players, enemies):
 
                 players[target].take_damage(enemy_dmg)
                 print(enemy.name.replace(" ", "") + " attacks " + players[target].name.replace(" ", "") + " for", enemy_dmg)
-                print(player)
+                
                 if players[target].get_hp() == 0:
                     print(players[target].name.replace(" ", "") + " has died.")
                     del players[target]
@@ -144,7 +144,7 @@ def battle(players, enemies):
                 if spell.type == "white":
                     enemy.heal(magic_dmg)
                     print(spell.name + " heals " + enemy.name + " for", str(magic_dmg), "HP."                )
-                elif spell.type == "ability":
+                elif spell.type == "skill":
 
                     target = random.randrange(0, 3)
 

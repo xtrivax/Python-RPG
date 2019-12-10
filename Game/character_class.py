@@ -13,7 +13,7 @@ import random
         self.actions = ["Attack", "Magic", "Items"]
         self.name = name
 """
-class Person:
+class Character:
     def __init__(self, name, hp, mp, atk, df, magic, items):
         self.maxhp = hp
         self.hp = hp
@@ -188,23 +188,3 @@ class Person:
             self.choose_enemy_spell()
         else:
             return spell, magic_dmg
-
-class Item:
-    def __init__(self, name, type, description, prop):
-        self.name = name
-        self.type = type
-        self.description = description
-        self.prop = prop
-
-
-class Spell:
-    def __init__(self, name, cost, dmg, type):
-        self.name = name
-        self.cost = cost
-        self.dmg = dmg
-        self.type = type
-
-    def generate_damage(self):
-        low = self.dmg - 15
-        high = self.dmg + 15
-        return random.randrange(low, high)
