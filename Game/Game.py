@@ -1,6 +1,6 @@
 import random
 from character_class import Character
-from skills import Spell
+from skills import *
 from items import Item
 from battle_code import battle
 
@@ -33,18 +33,7 @@ Defend yourself and beat them.
 
 
 
-# Create Damage Skills
-fire = Spell("Fire", 25, 600, "skill")
-ember = Spell("ember", 25, 600, "skill")
-flamethrower = Spell("flamethrower", 40, 1200, "skill")
-eruption = Spell("eruption", 60, 2000, "skill")
-slash = Spell("Sword Slash", 25, 600, "skill")
-jstrike = Spell("Jaizhenju Strike", 35, 1000, "skill")
-blade = Spell("Seeking Blade", 60, 2000, "skill")
 
-# Create white Magic
-cure = Spell("Small Heal", 25, 620, "white")
-cure2 = Spell("Heal", 32, 1500, "white")
 
 
 # Create some Items
@@ -55,7 +44,7 @@ elixer = Item("Hyper-Elixer", "elixer", "Fully restores HP/MP of one party membe
 hielixer = Item("Team-Elixer", "elixer", "Fully restores party's HP/MP", 9999)
 
 
-enemy_spells = [fire, flamethrower, cure2]
+enemy_spells = [fireball, flamethrower, cure2]
 player_items = [{"item": potion, "quantity": 15}, {"item": hipotion, "quantity": 5},
                 {"item": superpotion, "quantity": 5}, {"item": elixer, "quantity": 5},
                 {"item": hielixer, "quantity": 2},]
@@ -64,19 +53,19 @@ player_items = [{"item": potion, "quantity": 15}, {"item": hipotion, "quantity":
 # Instantiate People
 if player_class == "warrior":
     player_spells = [slash, jstrike, blade, cure, cure2]
-    player1 = Character("Vamirio:", 6260, 132, 500, 34, player_spells, player_items)
+    player1 = Character("Vamirio:", 1, 100, 30, 500, 100, 34, 20, player_spells, player_items)
 elif player_class == "mage":
-    player_spells = [fire, ember, flamethrower, eruption, cure, cure2]
-    player1 = Character("Vamirio:", 3260, 432, 300, 50, player_spells, player_items)
+    player_spells = [fireball, flamethrower, eruption, cure, cure2]
+    player1 = Character("Vamirio:", 1, 3260, 432, 300, 500, 20, 50, player_spells, player_items)
 else:
     print("""Error in class selection. Loading Backupclass.
     Godclass loaded.""")
-    player_spells = [fire, ember, flamethrower, eruption, slash, jstrike, blade, cure, cure2]
-    player1 = Character("Vamirio:", 3260, 132, 300, 34, player_spells, player_items)    
+    player_spells = [fireball, flamethrower, eruption, slash, jstrike, blade, cure, cure2]
+    player1 = Character("Vamirio:", 1, 6260, 132, 500, 100, 34, 20, player_spells, player_items)   
 
 
-enemy1 = Character("Goblin", 1250, 130, 560, 325, enemy_spells, [])
-enemy2 = Character("Hobgoblin", 5000, 701, 525, 25, enemy_spells, [])
+enemy1 = Character("Goblin", 1, 1250, 130, 560, 1, 325, 1, enemy_spells, [])
+enemy2 = Character("Hobgoblin", 1, 5000, 701, 525, 1, 25, 1,enemy_spells, [])
 
 
 players = [player1]

@@ -14,23 +14,35 @@ import random
         self.name = name
 """
 class Character:
-    def __init__(self, name, hp, mp, atk, df, magic, items):
+    def __init__(self, name, level, hp, mp, atk, spatk, df, spdf, magic, items):
+        self.level = level
         self.maxhp = hp
         self.hp = hp
         self.maxmp = mp
         self.mp = mp
-        self.atkl = atk - 10
-        self.atkh = atk + 10
+        self.atk = atk
+        self.spatk = spatk
         self.df = df
+        self.spdf = spdf
         self.magic = magic
         self.items = items
         self.actions = ["Attack", "Magic", "Items"]
-        self.name = name
+        self.name = name        
 
+    #Damage for normal Attacks
     def generate_damage(self):
-        return random.randrange(self.atkl, self.atkh)
+        return 2 * self.level / 5 * 50 * self.atk // enemy.df // 50
+
+    #Damage for Skills using physical stats
+    def generate_skilldamage(self):
+        return 2 * self.level / 5 * self.atk // 50
+    
+    #Damage for Spells and Skills using intelligence stats aka spatk
+    def generate_spelldamage(self):
+        return 2 * self.level / 5 * self.spatk // 50
 
     def take_damage(self, dmg):
+        dmg = dmg // self.df
         self.hp -= dmg
         if self.hp < 0:
             self.hp = 0
