@@ -54,7 +54,8 @@ def battle(players, enemies):
                     continue
 
                 spell = player.magic[magic_choice]
-                magic_dmg = spell.generate_damage()
+                magic_dmg = player.generate_spelldamage()
+                magic_dmg = magic_dmg * spell.dmg
 
                 current_mp = player.get_mp()
 
@@ -96,8 +97,8 @@ def battle(players, enemies):
                 player.items[item_choice]["quantity"] -= 1
 
                 if item.type == "potion":
-                    player.heal(item.prop)
-                    print("\n" + item.name + " heals for", str(item.prop), "HP")
+                    player.heal(item.stats)
+                    print("\n" + item.name + " heals for", str(item.stats), "HP")
                 elif item.type == "elixer":
 
                     if item.name == "MegaElixer":

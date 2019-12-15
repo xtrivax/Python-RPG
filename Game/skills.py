@@ -20,12 +20,12 @@ class Spell:
 #Spells and Abilitys
 
 # Create Damage Skills
-fireball = Spell("Fire", 25, 600, "skill")
-flamethrower = Spell("flamethrower", 40, 1200, "skill")
-eruption = Spell("eruption", 60, 2000, "skill")
-slash = Spell("Sword Slash", 25, 600, "skill")
-jstrike = Spell("Jaizhenju Strike", 35, 1000, "skill")
-blade = Spell("Seeking Blade", 60, 2000, "skill")
+fireball = Spell("Fire", 5, 60, "skill")
+flamethrower = Spell("flamethrower", 8, 80, "skill")
+eruption = Spell("eruption", 15, 120, "skill")
+slash = Spell("Sword Slash", 5, 60, "skill")
+jstrike = Spell("Jaizhenju Strike", 8, 80, "skill")
+blade = Spell("Seeking Blade", 15, 120, "skill")
 
 # Create white Magic
 cure = Spell("Small Heal", 25, 620, "white")

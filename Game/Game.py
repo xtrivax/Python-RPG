@@ -53,19 +53,19 @@ player_items = [{"item": potion, "quantity": 15}, {"item": hipotion, "quantity":
 # Instantiate People
 if player_class == "warrior":
     player_spells = [slash, jstrike, blade, cure, cure2]
-    player1 = Character("Vamirio:", 1, 100, 30, 500, 100, 34, 20, player_spells, player_items)
+    player1 = Character("Vamirio:", 5, 25, 10, 20, 11, 14, 15, player_spells, player_items)
 elif player_class == "mage":
     player_spells = [fireball, flamethrower, eruption, cure, cure2]
-    player1 = Character("Vamirio:", 1, 3260, 432, 300, 500, 20, 50, player_spells, player_items)
+    player1 = Character("Vamirio:", 5, 30, 20, 12, 18, 11, 16, player_spells, player_items)
 else:
     print("""Error in class selection. Loading Backupclass.
     Godclass loaded.""")
     player_spells = [fireball, flamethrower, eruption, slash, jstrike, blade, cure, cure2]
-    player1 = Character("Vamirio:", 1, 6260, 132, 500, 100, 34, 20, player_spells, player_items)   
+    player1 = Character("Vamirio:", 5, 6260, 132, 500, 100, 34, 20, player_spells, player_items)   
 
 
-enemy1 = Character("Goblin", 1, 1250, 130, 560, 1, 325, 1, enemy_spells, [])
-enemy2 = Character("Hobgoblin", 1, 5000, 701, 525, 1, 25, 1,enemy_spells, [])
+enemy1 = Character("Goblin", 5, 21, 1, 9, 7, 10, 8, enemy_spells, [])
+enemy2 = Character("Hobgoblin", 5, 23, 1, 15, 9, 11, 10, enemy_spells, [])
 
 
 players = [player1]

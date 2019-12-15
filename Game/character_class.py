@@ -1,4 +1,6 @@
 import random
+import math
+
 """class Player:
     def __init__(self, name, hp, mp, atk, df, magic, items):
         self.maxhp = hp
@@ -31,27 +33,40 @@ class Character:
 
     #Damage for normal Attacks
     def generate_damage(self):
-        return 2 * self.level / 5 * 50 * self.atk // enemy.df // 50
+        return round((2 * self.level / 5 + 2) * 50 * self.atk / 50)
 
     #Damage for Skills using physical stats
     def generate_skilldamage(self):
-        return 2 * self.level / 5 * self.atk // 50
+        return 2 * self.level / 5 * self.atk / 50
     
     #Damage for Spells and Skills using intelligence stats aka spatk
     def generate_spelldamage(self):
-        return 2 * self.level / 5 * self.spatk // 50
+        return 2 * self.level / 5 * self.spatk / 50
 
     def take_damage(self, dmg):
-        dmg = dmg // self.df
+        dmg = (dmg / self.df) + 2
+        dmg = round(dmg)
         self.hp -= dmg
         if self.hp < 0:
             self.hp = 0
         return self.hp
+        print(f"{self.name} has received {dmg} Damage.")
+
+
+    def take_magicdamage(self, dmg):
+        dmg = (dmg // self.spdf) + 2
+        dmg = round(dmg)
+        self.hp -= dmg
+        if self.hp < 0:
+            self.hp = 0
+        return self.hp
+        print(f"{self.name} has received {dmg} Damage.")
 
     def heal(self, dmg):
         self.hp += dmg
         if self.hp > self.maxhp:
             self.hp = self.maxhp
+        
 
     def get_hp(self):
         return self.hp
