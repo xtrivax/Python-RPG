@@ -39,7 +39,7 @@ def battle(players, enemies):
                 enemy = player.choose_target(enemies)
 
                 enemies[enemy].take_damage(dmg)
-                print("You attacked " + enemies[enemy].name.replace(" ", "") + " for", dmg, "points of damage.")
+                #print("You attacked " + enemies[enemy].name.replace(" ", "") + " for", dmg, "points of damage.")
 
                 if enemies[enemy].get_hp() == 0:
                     print(enemies[enemy].name.replace(" ", "") + " has died.")
@@ -74,7 +74,7 @@ def battle(players, enemies):
 
                     enemies[enemy].take_damage(magic_dmg)
 
-                    print("\n" + spell.name + " deals", str(magic_dmg), "points of damage to " + enemies[enemy].name.replace(" ", ""))
+                    #print("\n" + spell.name + " deals", str(magic_dmg), "points of damage to " + enemies[enemy].name.replace(" ", ""))
 
                     if enemies[enemy].get_hp() == 0:
                         print(enemies[enemy].name.replace(" ", "") + " has died.")
@@ -132,7 +132,7 @@ def battle(players, enemies):
                 enemy_dmg = enemy.generate_damage()
 
                 players[target].take_damage(enemy_dmg)
-                print(enemy.name.replace(" ", "") + " attacks " + players[target].name.replace(" ", "") + " for", enemy_dmg)
+                #print(enemy.name.replace(" ", "") + " attacks " + players[target].name.replace(" ", "") + " for", enemy_dmg)
                 
                 if players[target].get_hp() == 0:
                     print(players[target].name.replace(" ", "") + " has died.")
@@ -151,7 +151,7 @@ def battle(players, enemies):
 
                     players[target].take_damage(magic_dmg)
 
-                    print("\n" + enemy.name.replace(" ", "") + "'s " + spell.name + " deals", str(magic_dmg), "points of damage to " + players[target].name.replace(" ", ""))
+                    #print("\n" + enemy.name.replace(" ", "") + "'s " + spell.name + " deals", str(magic_dmg), "points of damage to " + players[target].name.replace(" ", ""))
 
                     if players[target].get_hp() == 0:
                         print(players[target].name.replace(" ", "") + " has died.")

@@ -1,31 +1,17 @@
 import random
 import math
 
-"""class Player:
-    def __init__(self, name, hp, mp, atk, df, magic, items):
-        self.maxhp = hp
-        self.hp = hp
-        self.maxmp = mp
-        self.mp = mp
-        self.atkl = atk - 10
-        self.atkh = atk + 10
-        self.df = df
-        self.magic = magic
-        self.items = items
-        self.actions = ["Attack", "Magic", "Items"]
-        self.name = name
-"""
 class Character:
-    def __init__(self, name, level, hp, mp, atk, spatk, df, spdf, magic, items):
+    def __init__(self, name, level, hp, mp, atk, spatk, df, spdf, magic, items, xp, xp_worth):
         self.level = level
-        self.maxhp = hp
-        self.hp = hp
-        self.maxmp = mp
-        self.mp = mp
-        self.atk = atk
-        self.spatk = spatk
-        self.df = df
-        self.spdf = spdf
+        self.maxhp = round(hp * level / 100)
+        self.hp = round(hp * level / 100)
+        self.maxmp = round(mp * level / 100)
+        self.mp = round(mp * level / 100)
+        self.atk = round(atk * level / 100)
+        self.spatk = round(spatk * level / 100)
+        self.df = round(df * level / 100)
+        self.spdf = round(spdf * level / 100)
         self.magic = magic
         self.items = items
         self.actions = ["Attack", "Magic", "Items"]
@@ -46,21 +32,24 @@ class Character:
     def take_damage(self, dmg):
         dmg = (dmg / self.df) + 2
         dmg = round(dmg)
+        print(f"""
+        {self.name} has received {dmg} Damage.
+        """)
         self.hp -= dmg
         if self.hp < 0:
             self.hp = 0
         return self.hp
-        print(f"{self.name} has received {dmg} Damage.")
-
 
     def take_magicdamage(self, dmg):
         dmg = (dmg // self.spdf) + 2
         dmg = round(dmg)
+        print(f"""
+        {self.name} has received {dmg} Damage.
+        """)
         self.hp -= dmg
         if self.hp < 0:
             self.hp = 0
         return self.hp
-        print(f"{self.name} has received {dmg} Damage.")
 
     def heal(self, dmg):
         self.hp += dmg
@@ -215,3 +204,14 @@ class Character:
             self.choose_enemy_spell()
         else:
             return spell, magic_dmg
+
+#todo: finishing xp system
+def enemyxpworth(enemies):
+    battlexp = 0
+    for enemy in enemies
+        battlexp = battlexp + enemy.xp_worth * 
+
+def xpgain():
+    
+
+def lvlup():

@@ -1,7 +1,7 @@
 import random
 from character_class import Character
 from skills import *
-from items import Item
+from items import *
 from battle_code import battle
 
 prompt = ">>> "
@@ -34,16 +34,6 @@ Defend yourself and beat them.
 
 
 
-
-
-# Create some Items
-potion = Item("Potion", "potion", "Heals 50 HP", 50)
-hipotion = Item("Hi-Potion", "potion", "Heals 100 HP", 100)
-superpotion = Item("Super Potion", "potion", "Heals 1000 HP", 1000)
-elixer = Item("Hyper-Elixer", "elixer", "Fully restores HP/MP of one party member", 9999)
-hielixer = Item("Team-Elixer", "elixer", "Fully restores party's HP/MP", 9999)
-
-
 enemy_spells = [fireball, flamethrower, cure2]
 player_items = [{"item": potion, "quantity": 15}, {"item": hipotion, "quantity": 5},
                 {"item": superpotion, "quantity": 5}, {"item": elixer, "quantity": 5},
@@ -64,8 +54,7 @@ else:
     player1 = Character("Vamirio:", 5, 6260, 132, 500, 100, 34, 20, player_spells, player_items)   
 
 
-enemy1 = Character("Goblin", 5, 21, 1, 9, 7, 10, 8, enemy_spells, [])
-enemy2 = Character("Hobgoblin", 5, 23, 1, 15, 9, 11, 10, enemy_spells, [])
+
 
 
 players = [player1]
