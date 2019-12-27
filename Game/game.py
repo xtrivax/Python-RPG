@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import random
 from character_class import Character
 from skills import *
