@@ -2,32 +2,33 @@ import random
 import math
 
 class Character:
-    def __init__(self, name, level, hp, mp, atk, spatk, df, spdf, magic, items, xp, xp_worth):
+    def __init__(self, name, level, basehp, basemp, baseatk, basespatk, basedf, basespdf, magic, items, xp, xp_worth):
         self.level = level
-        self.maxhp = round(hp * level / 100)
-        self.hp = round(hp * level / 100)
-        self.maxmp = round(mp * level / 100)
-        self.mp = round(mp * level / 100)
-        self.atk = round(atk * level / 100)
-        self.spatk = round(spatk * level / 100)
-        self.df = round(df * level / 100)
-        self.spdf = round(spdf * level / 100)
+        self.maxhp = round(basehp * level / 100)
+        self.hp = round(basehp * level / 100)
+        self.maxmp = round(basemp * level / 100)
+        self.mp = round(basemp * level / 100)
+        self.atk = round(baseatk * level / 100)
+        self.spatk = round(basespatk * level / 100)
+        self.df = round(basedf * level / 100)
+        self.spdf = round(basespdf * level / 100)
         self.magic = magic
         self.items = items
         self.actions = ["Attack", "Magic", "Items"]
-        self.name = name        
+        self.name = name
+        self.xp = xp
+        self.xp_worth = xp_worth        
 
     #Damage for normal Attacks
     def generate_damage(self):
         return round((2 * self.level / 5 + 2) * 50 * self.atk / 50)
 
     #Damage for Skills using physical stats
-    def generate_skilldamage(self):
-        return 2 * self.level / 5 * self.atk / 50
-    
-    #Damage for Spells and Skills using intelligence stats aka spatk
-    def generate_spelldamage(self):
-        return 2 * self.level / 5 * self.spatk / 50
+    def generate_skilldamage(self, skill):
+        if skill.type == "skill":
+            return 2 * self.level / 5 * self.atk / 50 * skill.dmg
+        elif skill.type == "magic":
+            return 2 * self.level / 5 * self.spatk / 50 * skill.dmg
 
     def take_damage(self, dmg):
         dmg = (dmg / self.df) + 2
@@ -205,13 +206,33 @@ class Character:
         else:
             return spell, magic_dmg
 
-#todo: finishing xp system
+#calculates xp that will be gained from enemies
 def enemyxpworth(enemies):
     battlexp = 0
-    for enemy in enemies
-        battlexp = battlexp + enemy.xp_worth * 
+    for enemy in enemies:
+        battlexp = battlexp + enemy.xp_worth * enemy.level
+    return battlexp
 
-def xpgain():
-    
+#Gives XP and says
+def xpgain(players, battlexp):
+    for player in players:
+        print(f"{player.name} has gained {battlexp} XP")
+        player.xp = player.xp + battlexp
+        if player.xp >= player.level ** 3:
+            player.xp 
+            lvlup(player)            
+        else:
+            xptonextlvl = (player.level ** 3) - player.xp
+            print(xptonextlvl)
 
-def lvlup():
+
+def lvlup(self):
+    self.level = self.level + 1
+    self.maxhp = round(basehp * level / 100)
+    self.hp = round(basehp * level / 100)
+    self.maxmp = round(basemp * level / 100)
+    self.mp = round(basemp * level / 100)
+    self.atk = round(baseatk * level / 100)
+    self.spatk = round(basespatk * level / 100)
+    self.df = round(basedf * level / 100)
+    self.spdf = round(basespdf * level / 100)

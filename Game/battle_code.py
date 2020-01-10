@@ -1,13 +1,13 @@
 import random
-import character_class
-import skills
-import items
+from character_class import *
+from skills import *
+from items import *
 
 def battle(players, enemies):
     #I give over the list of Enemies and Players
 
     running = True
-
+    battlexp = enemyxpworth(enemies)
     #Need it to adapt to different Battle size (E.G.: Enemies choosing target)
     player_nr = len(players)
     enemy_nr = len(enemies)
@@ -54,8 +54,7 @@ def battle(players, enemies):
                     continue
 
                 spell = player.magic[magic_choice]
-                magic_dmg = player.generate_spelldamage()
-                magic_dmg = magic_dmg * spell.dmg
+                magic_dmg = player.generate_skilldamage(spell)
 
                 current_mp = player.get_mp()
 
@@ -109,7 +108,8 @@ def battle(players, enemies):
                         player.hp = player.maxhp
                         player.mp = player.maxmp
                     print("\n" + item.name + " fully restores HP/MP")                        
-        
+        """
+        commented out cause only on cheack after enemy turn should be needed
         # Check if battle is over
         # Check if Player won
         if len(enemies) == 0:
@@ -120,12 +120,13 @@ def battle(players, enemies):
         elif len(players) == 0:
             print("Your enemies have defeated you!")
             running = False
+        """
 
         print("\n")
         # Enemy attack phase
         for enemy in enemies:
             enemy_choice = random.randrange(0, 1)
-
+            
             if enemy_choice == 0:
                 # Chose attack
                 target = random.randrange(0, player_nr)
@@ -157,12 +158,14 @@ def battle(players, enemies):
                         print(players[target].name.replace(" ", "") + " has died.")
                         del players[player]
                 #print("Enemy chose", spell, "damage is", magic_dmg)
-            # Check if Player won
-            if len(enemies) == 0:
-                print("You win!")
-                running = False
 
-            # Check if Enemy won
-            elif len(players) == 0:
-                print("Your enemies have defeated you!")
-                running = False
+        # Check if Player won
+        if len(enemies) == 0:
+            print("You win!")
+            xpgain(players, battlexp)
+            running = False
+            
+        # Check if Enemy won
+        elif len(players) == 0:
+            print("Your enemies have defeated you!")
+            running = False

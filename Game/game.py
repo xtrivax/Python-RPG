@@ -5,6 +5,7 @@ from character_class import Character
 from skills import *
 from items import *
 from battle_code import battle
+from enemies import *
 
 prompt = ">>> "
 
@@ -36,7 +37,6 @@ Defend yourself and beat them.
 
 
 
-enemy_spells = [fireball, flamethrower, cure2]
 player_items = [{"item": potion, "quantity": 15}, {"item": hipotion, "quantity": 5},
                 {"item": superpotion, "quantity": 5}, {"item": elixer, "quantity": 5},
                 {"item": hielixer, "quantity": 2},]
@@ -45,19 +45,20 @@ player_items = [{"item": potion, "quantity": 15}, {"item": hipotion, "quantity":
 # Instantiate People
 if player_class == "warrior":
     player_spells = [slash, jstrike, blade, cure, cure2]
-    player1 = Character("Vamirio:", 5, 25, 10, 20, 11, 14, 15, player_spells, player_items)
+    player1 = Character("Vamirio:", 5, 25, 10, 20, 11, 14, 15, player_spells, player_items, 0, 0)
 elif player_class == "mage":
     player_spells = [fireball, flamethrower, eruption, cure, cure2]
-    player1 = Character("Vamirio:", 5, 30, 20, 12, 18, 11, 16, player_spells, player_items)
+    player1 = Character("Vamirio:", 5, 416, 535, 359, 535, 239, 379, player_spells, player_items, 0, 0)
 else:
     print("""Error in class selection. Loading Backupclass.
     Godclass loaded.""")
     player_spells = [fireball, flamethrower, eruption, slash, jstrike, blade, cure, cure2]
-    player1 = Character("Vamirio:", 5, 6260, 132, 500, 100, 34, 20, player_spells, player_items)   
+    player1 = Character("Vamirio:", 5, 6260, 132, 500, 100, 34, 20, player_spells, player_items, 0, 0)   
 
 
 
-
+enemy1 = goblin
+enemy2 = hobgoblin
 
 players = [player1]
 enemies = [enemy1, enemy2]
