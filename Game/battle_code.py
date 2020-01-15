@@ -1,7 +1,58 @@
 import random
+import sys
 from character_class import *
 from skills import *
 from items import *
+from characters import *
+
+def startbattle()
+    print("""
+    The Goblin runs towards you.
+    You feel your Adrenalin rising and you try to;.
+    1. Rush forward and disarm the Goblin
+    2. Conjure a spell
+    """)
+    attack_choice = input(">>>")
+    if attack_choice == "1":
+        print("""
+        You rush forwards towards the Goblin.
+        The surprised Goblin swings his Sword after you.
+
+        But you react fast and evade it.
+        You hit the Sword out of his Hand and then kick him.
+        He Stumbles. Which gives you enough Time to get his Sword from the Ground.
+
+        You attack him immediately and stab him into his chest.
+        He cries in Agony while you press him to the ground.
+        It becomes quiet. You apply some more pressure just to be sure and then pull the sword out.
+        You have no scabbard but it should do just fine.
+        """)
+        player_class = "warrior"
+        player1 = player_warrior
+
+    elif attack_choice == "2":
+        print()  
+        player_class = "mage"
+        player1 = player_mage
+
+    else:
+        print("""
+        You try think of a way out of this situation but the Goblin is fast.
+        You barely had time to react when you allready feel the cold of his Iron Dagger penetrating your Skin.
+
+        Panic overcomes you and you look around.
+
+        But its too late. Your vision becomes dark...
+        ...
+        ...
+        ...
+
+
+        YOU DIED
+        """)
+        sys.exit()
+    players = [player1]
+    xpgain(players, 125)
 
 def battle(players, enemies):
     #I give over the list of Enemies and Players
@@ -54,7 +105,7 @@ def battle(players, enemies):
                     continue
 
                 spell = player.magic[magic_choice]
-                magic_dmg = player.generate_skilldamage(spell)
+                skill_dmg = player.generate_skilldamage(spell)
 
                 current_mp = player.get_mp()
 
@@ -65,15 +116,15 @@ def battle(players, enemies):
                 player.reduce_mp(spell.cost)
 
                 if spell.type == "white":
-                    player.heal(magic_dmg)
-                    print("\n" + spell.name + " heals for", str(magic_dmg), "HP.")
-                elif spell.type == "skill":
+                    player.heal(skill_dmg)
+                    print("\n" + spell.name + " heals for", str(skill_dmg), "HP.")
+                elif spell.type == "skill" or spell.type == "magic":
 
                     enemy = player.choose_target(enemies)
 
-                    enemies[enemy].take_damage(magic_dmg)
+                    enemies[enemy].take_skilldamage(skill_dmg, spell)
 
-                    #print("\n" + spell.name + " deals", str(magic_dmg), "points of damage to " + enemies[enemy].name.replace(" ", ""))
+                    #print("\n" + spell.name + " deals", str(skill_dmg), "points of damage to " + enemies[enemy].name.replace(" ", ""))
 
                     if enemies[enemy].get_hp() == 0:
                         print(enemies[enemy].name.replace(" ", "") + " has died.")
@@ -140,31 +191,30 @@ def battle(players, enemies):
                     del players[target]
 
             elif enemy_choice == 1:
-                spell, magic_dmg = enemy.choose_enemy_spell()
+                spell, skill_dmg = enemy.choose_enemy_spell()
                 enemy.reduce_mp(spell.cost)
 
                 if spell.type == "white":
-                    enemy.heal(magic_dmg)
-                    print(spell.name + " heals " + enemy.name + " for", str(magic_dmg), "HP."                )
+                    enemy.heal(skill_dmg)
+                    print(spell.name + " heals " + enemy.name + " for", str(skill_dmg), "HP."                )
                 elif spell.type == "skill":
 
                     target = random.randrange(0, 3)
 
-                    players[target].take_damage(magic_dmg)
+                    players[target].take_skilldamage(skill_dmg, skill)
 
-                    #print("\n" + enemy.name.replace(" ", "") + "'s " + spell.name + " deals", str(magic_dmg), "points of damage to " + players[target].name.replace(" ", ""))
+                    #print("\n" + enemy.name.replace(" ", "") + "'s " + spell.name + " deals", str(skill_dmg), "points of damage to " + players[target].name.replace(" ", ""))
 
                     if players[target].get_hp() == 0:
                         print(players[target].name.replace(" ", "") + " has died.")
                         del players[player]
-                #print("Enemy chose", spell, "damage is", magic_dmg)
+                #print("Enemy chose", spell, "damage is", skill_dmg)
 
         # Check if Player won
         if len(enemies) == 0:
             print("You win!")
             xpgain(players, battlexp)
             running = False
-            
         # Check if Enemy won
         elif len(players) == 0:
             print("Your enemies have defeated you!")

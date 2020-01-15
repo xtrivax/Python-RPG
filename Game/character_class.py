@@ -4,6 +4,12 @@ import math
 class Character:
     def __init__(self, name, level, basehp, basemp, baseatk, basespatk, basedf, basespdf, magic, items, xp, xp_worth):
         self.level = level
+        self.basehp = basehp
+        self.basemp = basemp
+        self.baseatk = baseatk
+        self.basespatk = basespatk
+        self.basedf = basedf
+        self.basespdf = basespdf
         self.maxhp = round(basehp * level / 100)
         self.hp = round(basehp * level / 100)
         self.maxmp = round(basemp * level / 100)
@@ -28,7 +34,7 @@ class Character:
         if skill.type == "skill":
             return 2 * self.level / 5 * self.atk / 50 * skill.dmg
         elif skill.type == "magic":
-            return 2 * self.level / 5 * self.spatk / 50 * skill.dmg
+            return 2 * self.level / 5 * self.spatk / 40 * skill.dmg
 
     def take_damage(self, dmg):
         dmg = (dmg / self.df) + 2
@@ -41,9 +47,13 @@ class Character:
             self.hp = 0
         return self.hp
 
-    def take_magicdamage(self, dmg):
-        dmg = (dmg // self.spdf) + 2
-        dmg = round(dmg)
+    def take_skilldamage(self, dmg, skill):
+        if skill.type == "skill":
+            dmg = (dmg // self.pdf) + 2
+            dmg = round(dmg)
+        elif skill.type == "magic":
+            dmg = (dmg // self.spdf) + 2
+            dmg = round(dmg)
         print(f"""
         {self.name} has received {dmg} Damage.
         """)
@@ -213,26 +223,50 @@ def enemyxpworth(enemies):
         battlexp = battlexp + enemy.xp_worth * enemy.level
     return battlexp
 
-#Gives XP and says
+#Gives XP and checks for levelup
 def xpgain(players, battlexp):
     for player in players:
         print(f"{player.name} has gained {battlexp} XP")
         player.xp = player.xp + battlexp
-        if player.xp >= player.level ** 3:
-            player.xp 
-            lvlup(player)            
-        else:
-            xptonextlvl = (player.level ** 3) - player.xp
-            print(xptonextlvl)
+        lvlupdone = False
+        while not lvlupdone:
+            if player.xp >= player.level ** 3:
+                player.xp - player.level ** 3
+                lvlup(player)            
+            else:
+                xptonextlvl = (player.level ** 3) - player.xp
+                print(f"{xptonextlvl} until next level.")
+                lvlupdone = True
 
-
+#does the levelup
 def lvlup(self):
+    print("You gained a Level.")
     self.level = self.level + 1
-    self.maxhp = round(basehp * level / 100)
-    self.hp = round(basehp * level / 100)
-    self.maxmp = round(basemp * level / 100)
-    self.mp = round(basemp * level / 100)
-    self.atk = round(baseatk * level / 100)
-    self.spatk = round(basespatk * level / 100)
-    self.df = round(basedf * level / 100)
-    self.spdf = round(basespdf * level / 100)
+
+    hpgain = round(self.basehp * self.level / 100) - self.maxhp
+    print(f"HP +{hpgain}")
+    self.maxhp += hpgain
+    self.hp = self.maxhp
+
+    mpgain = round(self.basemp * self.level / 100) - self.maxmp
+    print(f"MP +{mpgain}")
+    self.maxmp += mpgain
+    self.mp = self.maxmp
+
+    atkgain = round(self.baseatk * self.level / 100) - self.atk
+    print(f"Attack +{atkgain}")
+    self.atk += atkgain
+
+    spatkgain = round(self.basespatk * self.level / 100) - self.spatk
+    print(f"Special Attack +{spatkgain}")
+    self.spatk += spatkgain
+
+    dfgain = round(self.basedf * self.level / 100) - self.df
+    print(f"Defense +{dfgain}")
+    self.df += dfgain
+
+    spdfgain = round(self.basespdf * self.level / 100) - self.spdf
+    print(f"Special Defense +{spdfgain}")
+    self.spdf += spdfgain
+    print("""       
+    """)
