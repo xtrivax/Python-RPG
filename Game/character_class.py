@@ -49,7 +49,7 @@ class Character:
 
     def take_skilldamage(self, dmg, skill):
         if skill.type == "skill":
-            dmg = (dmg // self.pdf) + 2
+            dmg = (dmg // self.spdf) + 2
             dmg = round(dmg)
         elif skill.type == "magic":
             dmg = (dmg // self.spdf) + 2
@@ -145,7 +145,7 @@ class Character:
         else:
             current_hp = hp_string
 
-        print("                    __________________________________________________ ")
+        print("                      __________________________________________________ ")
         print(self.name + "  " +
               current_hp + " |" + hp_bar + "|")
 
@@ -199,7 +199,7 @@ class Character:
         else:
             current_mp = mp_string
 
-        print("                     _________________________              __________ ")
+        print("                      _________________________              __________ ")
         print(self.name + "    " +
               current_hp +" |" + hp_bar + "|    " +
               current_mp + " |" + mp_bar + "|")

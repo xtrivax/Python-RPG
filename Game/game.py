@@ -8,9 +8,9 @@ from battle_code import *
 from enemies import *
 from characters import *
 
-prompt = ">>> "
+prompt = ">>>  "
 
-startbattle()
+player1 = startbattle()
 
 print("""
 When you enter the room you get attacked by Goblins.
